@@ -38,13 +38,15 @@ app.use('/api/auth',authRoute);
 app.use('/api/user',userRoute);
 app.use('/api/posts',postsRoute);
 app.use('/api/categories',categoryRoute);
+
+app.options('*', cors());
+
 app.use(
     cors({
         origin: "*",
         credentials: true,
     })
   )
-app.use(cors());
 
 app.listen('5000',()=>{
     console.log("Backend is running...");
