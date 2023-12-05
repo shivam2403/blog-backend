@@ -2,9 +2,21 @@ const router=require('express').Router();
 const User=require('../models/User');
 const Post=require('../models/Post');
 const bcrypt=require('bcrypt');
+const cors = require('cors');
+
+// Apply CORS middleware for the entire router
+router.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  })
+);
 
 // UPDATE
 router.put('/:id', async (req,res)=>{
+    res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', true);
+
     if(req.body.userId===req.params.id){
         if(req.body.password){
             const salt=await bcrypt.genSalt(10)
@@ -27,6 +39,9 @@ router.put('/:id', async (req,res)=>{
 
 // DELETE
 router.delete('/:id', async (req,res)=>{
+    res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', true);
+
     if(req.body.userId===req.params.id){
         try {
             const user=await User.findById(req.params.id);
@@ -50,6 +65,9 @@ router.delete('/:id', async (req,res)=>{
 
 // GET USER
 router.get('/:id',async (req,res)=>{
+    res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', true);
+
     try {
         const user=await User.findById(req.params.id);
         const {password,...others}=user._doc;
