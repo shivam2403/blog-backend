@@ -23,6 +23,8 @@ router.post('/register', async (req,res)=>{
 
 // LOGIN
 router.post('/login',async(req,res)=>{
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', true);
     try {
         const user=await User.findOne({username:req.body.username});
         if(!user) return res.status(400).json("Wrong Credentials!");
