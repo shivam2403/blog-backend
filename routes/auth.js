@@ -1,6 +1,15 @@
 const router=require('express').Router();
 const User=require('../models/User');
 const bcrypt=require('bcrypt');
+const cors = require('cors');
+
+// Apply CORS middleware for the entire router
+router.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  })
+);
 
 // REGISTER
 router.post('/register', async (req,res)=>{
