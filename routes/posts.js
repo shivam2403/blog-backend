@@ -2,9 +2,22 @@ const router=require('express').Router();
 const User=require('../models/User');
 const Post=require('../models/Post');
 const bcrypt=require('bcrypt');
+const cors = require('cors');
+
+// Apply CORS middleware for the entire router
+router.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  })
+);
+
 
 // CREATE POST
 router.post('/', async (req,res)=>{
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', true);
+    
     const newPost=new Post(req.body);
     try{
         const savedPost = await newPost.save();
@@ -17,6 +30,9 @@ router.post('/', async (req,res)=>{
 
 // UPDATE POST
 router.put('/:id', async (req,res)=>{
+      res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', true);
+    
     try {
         const post=await Post.findById(req.params.id);
         if(post.username===req.body.username){
@@ -39,6 +55,9 @@ router.put('/:id', async (req,res)=>{
 
 // DELETE POST
 router.delete('/:id', async (req,res)=>{
+      res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', true);
+    
     try {
         const post=await Post.findById(req.params.id);
         if(post.username===req.body.username){
@@ -59,6 +78,9 @@ router.delete('/:id', async (req,res)=>{
 
 // GET POST
 router.get('/:id',async (req,res)=>{
+      res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', true);
+    
     try {
         const post=await Post.findById(req.params.id);
         return res.status(200).json(post);
@@ -69,6 +91,9 @@ router.get('/:id',async (req,res)=>{
 
 // GET ALL POSTS
 router.get('/',async (req,res)=>{
+      res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', true);
+    
     const username=req.query.user;
     const catName=req.query.cat;
     try {
