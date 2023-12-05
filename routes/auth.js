@@ -13,6 +13,8 @@ router.use(
 
 // REGISTER
 router.post('/register', async (req,res)=>{
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', true);
     try{
         const salt=await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(req.body.password,salt);
